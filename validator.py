@@ -37,7 +37,14 @@ def compute_pairwise_condenced(items, func):
 
     pool = mp.Pool(processes=mp.cpu_count())
     return pool.map(func, item_pairs)
-    
+
+
+def filter_false_positives(clusters):
+    filtered = []
+    for key, cluster in clusters.items():
+        if len(cluster) != 1:
+            filtered.append(cluster)
+    return filtered
 
 
 def run_validator(timeseries, window_size):
@@ -69,7 +76,7 @@ def run_validator(timeseries, window_size):
         clusters[cluster_indexes[i]].append(authors[i])
 
     print('Validator: done')
-    return clusters
+    return filter_false_positives(clusters)
 
     
     
