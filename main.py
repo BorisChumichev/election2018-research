@@ -11,7 +11,7 @@ ACTIVITY_THRESHOLD = 3
 vk_df = load_stream_data('data/vk.json')
 
 def run(offset):
-    print(offset + ' =====================')
+    print('{} ====================='.format(offset))
     timeseries = df_to_time_series(vk_df, BASE_WINDOW, offset)
     suspicious_timeseries = run_indexer(
         timeseries,

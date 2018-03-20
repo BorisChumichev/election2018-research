@@ -51,8 +51,9 @@ def df_to_time_series(df, time_window, offset = 0, verbose = True):
     print('Preprocessing: converting to authors activities timeseries')
     
     # determine time bounds and filter out corresponding rows
-    max_time = df.time.max() - time_window * offset
-    min_time = df.time.max() - time_window * (offset + 1)
+    max_time = df.time.max() - int(time_window * offset)
+    min_time = df.time.max() - int(time_window * (offset + 1))
+    print('Preprocessing: time rage {} - {}'.format(min_time, max_time))
     time_window_df = df[df.time.apply(lambda t: t > min_time and t < max_time)]
     time_window_mathced_times = time_window_df.time.unique()
     
