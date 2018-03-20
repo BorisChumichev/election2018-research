@@ -54,7 +54,7 @@ def run_validator(timeseries, window_size):
         authors.append(author)
         activities.append(series)
     
-    print('Validator: computing cDTW distance matrix on {} CPUs'.format(mp.cpu_count()))
+    print('Validator: computing cDTW distance matrix on {} CPUs'.format(mp.cpu_count() - 1))
     constrained_warped_corellation = partial(warped_correlation, window_size)
     
     condensed_distance_matrix = compute_pairwise_condenced(
