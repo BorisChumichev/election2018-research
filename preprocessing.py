@@ -7,21 +7,36 @@ def load_stream_data(filepath, format='vk'):
     """ Loads data from fs and returns pandas dataframe """   
     
     records = []
-    with open(filepath) as f:
+    with open(filepath, encoding='latin1') as f:
         print('Preprocessing: started reading {}'.format(filepath))
-        for line in f:
-            document = json.loads(line)
-            records.append(
-                ( document['event']['creation_time']
-                , document['event']['action']
-                , document['event']['event_type']
-                , document['event']['tags']
-                , document['event']['author']['id']
-                , document['event']['text']
-                , document['event']['event_url']
+
+        if format == 'vk':
+            for line in f:
+                document = json.loads(line)
+                records.append(
+                    ( document['event']['creation_time']
+                    , document['event']['action']
+                    , document['event']['event_type']
+                    , document['event']['tags']
+                    , document['event']['author']['id']
+                    , document['event']['text']
+                    , document['event']['event_url']
+                    )
                 )
-            )
-    df = pd.DataFrame(records, columns=['time', 'action', 'type', 'tags', 'author', 'text', 'url'])
+            df = pd.DataFrame(records, columns=['time', 'action', 'type', 'tags', 'author', 'text', 'url'])
+
+        if format == 'twitter':
+            for line in f:
+                document = json.loads(line)
+                records.append(
+                    ( int(document['timestamp_ms']) / 1000
+                    , document['user']['screen_name']
+                    , document['channels'].keys()
+                    , document['text']
+                    )
+                )
+            df = pd.DataFrame(records, columns=['time', 'author', 'tags', 'text'])
+
     print('Preprocessing: {} events loaded from fs'.format(df.shape[0]))
     return df
 
