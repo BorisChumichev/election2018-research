@@ -33,7 +33,7 @@ def df_to_time_series(df, time_window, offset = 0, verbose = True):
     of event counts for a given user at a given second
     """
     
-    print('Preprocessing: converting to author’s activities timeseries')
+    print('Preprocessing: converting to authors activities timeseries')
     
     # determine time bounds and filter out corresponding rows
     max_time = df.time.max() - time_window * offset

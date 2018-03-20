@@ -64,7 +64,7 @@ def run_validator(timeseries, window_size):
     
     print('Validator: clustering')
     linkage_matrix = linkage(abs(np.array(condensed_distance_matrix) - 1), method='single')
-    dendrogram(linkage_matrix)
+    #dendrogram(linkage_matrix)
     cluster_indexes = fcluster(linkage_matrix, 0.005, 'distance')
     
 
@@ -77,6 +77,3 @@ def run_validator(timeseries, window_size):
 
     print('Validator: done')
     return filter_false_positives(clusters)
-
-    
-    
