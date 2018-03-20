@@ -26,7 +26,7 @@ def run(offset):
 
     clusters = run_validator(suspicious_timeseries, MAXIMUM_LAG)
     
-    print('Clusters: ' + clusters)
+    print('Result: {}'.format(clusters))
 
 for offset in [0.5 * i for i in range(25)]:
     run(offset)
