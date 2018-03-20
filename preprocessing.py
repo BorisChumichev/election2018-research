@@ -29,7 +29,7 @@ def load_stream_data(filepath, format='vk'):
             for line in f:
                 document = json.loads(line)
                 records.append(
-                    ( int(document['timestamp_ms']) / 1000
+                    ( int(int(document['timestamp_ms']) / 1000)
                     , document['user']['screen_name']
                     , document['channels'].keys()
                     , document['text']
