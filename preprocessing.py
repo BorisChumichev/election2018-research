@@ -74,7 +74,8 @@ def df_to_time_series(df, time_window, offset = 0, verbose = True):
     # filter out authors with just one activity, since correlating one activity is meaningless
     authors_to_delete = []
     for key, value in author_series.items():
-        if sum(value) <= 1:
+        #if sum(value) <= 1:
+        if sum(value) <= 3:
             authors_to_delete.append(key)
     for key in authors_to_delete:
         author_series.pop(key, None)

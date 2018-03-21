@@ -13,14 +13,15 @@ vk_df = load_stream_data('data/vk.json')
 def run(offset):
     print('{} ====================='.format(offset))
     try:
-        timeseries = df_to_time_series(vk_df, BASE_WINDOW, offset)
-        suspicious_timeseries = run_indexer(
-            timeseries,
-            BASE_WINDOW,
-            MAXIMUM_LAG,
-            INDEXER_HASH_BUCKETS,
-            ACTIVITY_THRESHOLD
-        )
+        # timeseries = df_to_time_series(vk_df, BASE_WINDOW, offset)
+        # suspicious_timeseries = run_indexer(
+        #     timeseries,
+        #     BASE_WINDOW,
+        #     MAXIMUM_LAG,
+        #     INDEXER_HASH_BUCKETS,
+        #     ACTIVITY_THRESHOLD
+        # )
+        suspicious_timeseries = df_to_time_series(vk_df, BASE_WINDOW, offset)
 
         if (len(suspicious_timeseries) == 0):
             return print('')
