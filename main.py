@@ -12,21 +12,24 @@ vk_df = load_stream_data('data/vk.json')
 
 def run(offset):
     print('{} ====================='.format(offset))
-    timeseries = df_to_time_series(vk_df, BASE_WINDOW, offset)
-    suspicious_timeseries = run_indexer(
-        timeseries,
-        BASE_WINDOW,
-        MAXIMUM_LAG,
-        INDEXER_HASH_BUCKETS,
-        ACTIVITY_THRESHOLD
-    )
-    
-    if (len(suspicious_timeseries) == 0):
-        return print('')
+    try:
+        timeseries = df_to_time_series(vk_df, BASE_WINDOW, offset)
+        suspicious_timeseries = run_indexer(
+            timeseries,
+            BASE_WINDOW,
+            MAXIMUM_LAG,
+            INDEXER_HASH_BUCKETS,
+            ACTIVITY_THRESHOLD
+        )
 
-    clusters = run_validator(suspicious_timeseries, MAXIMUM_LAG)
+        if (len(suspicious_timeseries) == 0):
+            return print('')
+
+        clusters = run_validator(suspicious_timeseries, MAXIMUM_LAG)
+        print('Result: {}'.format(clusters))
+    except:
+        print('Error occured')
     
-    print('Result: {}'.format(clusters))
 
 for offset in [0.5 * i for i in range(25)]:
     run(offset)
